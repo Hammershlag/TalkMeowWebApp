@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Add Avatar</title>
     <th:block th:insert="~{fragments/header :: header}"></th:block>
-    <link rel="stylesheet" href="/css/manager-add-avatar.css">
+    <link href="/css/manager-add-avatar.css" rel="stylesheet">
 </head>
 <body>
 <th:block th:insert="~{fragments/new-message-notification :: new-message-notification}"></th:block>
@@ -20,41 +20,41 @@
         <p th:if="${param.error[0] == 'age_required'}">Age is required.</p>
         <p th:if="${param.error[0] == 'source_required'}">Source is required.</p>
     </div>
-    <form action="/manager/add-avatar" method="post" enctype="multipart/form-data">
+    <form action="/manager/add-avatar" enctype="multipart/form-data" method="post">
 
         <div class="params-container">
             <div>
                 <label for="furColor">Fur Color:</label>
                 <select id="furColor" name="furColor">
-                    <option th:each="color : ${color}" th:value="${color}" th:text="${color}"></option>
+                    <option th:each="color : ${color}" th:text="${color}" th:value="${color}"></option>
                 </select>
             </div>
 
             <div>
                 <label for="eyeColor">Eye Color:</label>
                 <select id="eyeColor" name="eyeColor">
-                    <option th:each="color : ${color}" th:value="${color}" th:text="${color}"></option>
+                    <option th:each="color : ${color}" th:text="${color}" th:value="${color}"></option>
                 </select>
             </div>
 
             <div>
                 <label for="pattern">Pattern:</label>
                 <select id="pattern" name="pattern">
-                    <option th:each="pattern : ${pattern}" th:value="${pattern}" th:text="${pattern}"></option>
+                    <option th:each="pattern : ${pattern}" th:text="${pattern}" th:value="${pattern}"></option>
                 </select>
             </div>
 
             <div>
                 <label for="breed">Breed:</label>
                 <select id="breed" name="breed">
-                    <option th:each="breed : ${breed}" th:value="${breed}" th:text="${breed}"></option>
+                    <option th:each="breed : ${breed}" th:text="${breed}" th:value="${breed}"></option>
                 </select>
             </div>
 
             <div>
                 <label for="age">Age:</label>
                 <select id="age" name="age">
-                    <option th:each="age : ${age}" th:value="${age}" th:text="${age}"></option>
+                    <option th:each="age : ${age}" th:text="${age}" th:value="${age}"></option>
                 </select>
             </div>
         </div>
@@ -63,17 +63,17 @@
         <div class="image-data-container">
             <div>
                 <label for="imageData">Avatar Image:</label><br>
-                <input type="file" id="imageData" name="imageData" accept="image/jpeg,image/png,image/jpg">
+                <input accept="image/jpeg,image/png,image/jpg" id="imageData" name="imageData" type="file">
             </div>
 
             <div>
                 <label for="source">Source:</label>
-                <input type="text" id="source" name="source">
+                <input id="source" name="source" type="text">
             </div>
         </div>
 
         <div>
-            <button type="submit" class="button submit-button">Add Avatar</button>
+            <button class="button submit-button" type="submit">Add Avatar</button>
         </div>
     </form>
 </div>

@@ -1,9 +1,9 @@
-    let pawPrints = [];
-    const pawPrintSpacing = 75;
-    const animationDuration = 12000;
-    const waveDelay = 1500;
+let pawPrints = [];
+const pawPrintSpacing = 75;
+const animationDuration = 12000;
+const waveDelay = 1500;
 
-    function createPawPrints() {
+function createPawPrints() {
     const container = document.getElementById('paw-prints-container');
     container.innerHTML = '';
     pawPrints = [];
@@ -15,25 +15,25 @@
     let rotateUp = true;
 
     for (let i = 0; i < totalPawPrints; i++) {
-    const pawPrint = document.createElement('img');
-    pawPrint.src = '/images/PawPrintCartoonStyleTransparent.png';
-    pawPrint.className = 'paw-print';
-    pawPrint.style.left = (leftPadding + i * pawPrintSpacing) + 'px';
+        const pawPrint = document.createElement('img');
+        pawPrint.src = '/images/PawPrintCartoonStyleTransparent.png';
+        pawPrint.className = 'paw-print';
+        pawPrint.style.left = (leftPadding + i * pawPrintSpacing) + 'px';
 
-    if(rotateUp) {
-    pawPrint.classList.add('rotate-up');
-} else {
-    pawPrint.classList.add('rotate-down');
-}
+        if (rotateUp) {
+            pawPrint.classList.add('rotate-up');
+        } else {
+            pawPrint.classList.add('rotate-down');
+        }
 
-    rotateUp = !rotateUp;
-    container.appendChild(pawPrint);
-    pawPrints.push(pawPrint);
-}
+        rotateUp = !rotateUp;
+        container.appendChild(pawPrint);
+        pawPrints.push(pawPrint);
+    }
     animatePawPrints();
 }
 
-    function animatePawPrints() {
+function animatePawPrints() {
     pawPrints.forEach((pawPrint, index) => {
         const delay = index * waveDelay;
 
@@ -41,12 +41,12 @@
     });
 }
 
-    function onResize() {
+function onResize() {
     createPawPrints();
 }
 
-    window.addEventListener('resize', onResize);
-    window.addEventListener('load', () => {
+window.addEventListener('resize', onResize);
+window.addEventListener('load', () => {
     createPawPrints();
     animatePawPrints();
 });

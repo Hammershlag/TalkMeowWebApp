@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>User List</title>
     <th:block th:insert="~{fragments/header :: header}"></th:block>
-    <link rel="stylesheet" href="/css/admin.css">
+    <link href="/css/admin.css" rel="stylesheet">
     <script src="/javascript/buttonPress.js"></script>
 
 </head>
@@ -30,7 +30,7 @@
             <td th:text="${user.userStatus}"></td>
             <td th:text="${user.banStrike}"></td>
             <td>
-                <a th:href="@{'/admin/user/' + ${user.id} + '/messages'}" class="submit-button">View Messages</a>
+                <a class="submit-button" th:href="@{'/admin/user/' + ${user.id} + '/messages'}">View Messages</a>
             </td>
         </tr>
         </tbody>

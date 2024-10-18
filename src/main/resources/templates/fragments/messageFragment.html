@@ -1,12 +1,12 @@
 <div th:fragment="messageFragment">
-    <div th:classappend="${sentByLoggedInUser} ? 'sent' : 'received'" class="message">
+    <div class="message" th:classappend="${sentByLoggedInUser} ? 'sent' : 'received'">
         <div class="message-image">
-            <img th:if="${!sentByLoggedInUser}" th:src="@{/image/avatar/{id}(id=${otherUser.avatar.id})}" alt="Profile picture"/>
+            <img alt="Profile picture" th:if="${!sentByLoggedInUser}" th:src="@{/image/avatar/{id}(id=${otherUser.avatar.id})}"/>
         </div>
         <div class="message-content">
             <p th:text="${messageContent}"></p>
             <small th:text="${#temporals.format(timestamp, 'HH:mm:ss')}"></small>
-            <small th:if="${sentByLoggedInUser} and ${last}" class="status" th:text="'Status: ' + ${status}"></small>
+            <small class="status" th:if="${sentByLoggedInUser} and ${last}" th:text="'Status: ' + ${status}"></small>
         </div>
     </div>
 </div>

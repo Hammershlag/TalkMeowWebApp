@@ -1,21 +1,15 @@
 package uni.projects.talkmeow.controllers.image;
 
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import uni.projects.talkmeow.components.avatar.*;
-import uni.projects.talkmeow.repositories.AvatarRepository;
 import uni.projects.talkmeow.services.AvatarService;
 
-import java.nio.ByteBuffer;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping("/image")

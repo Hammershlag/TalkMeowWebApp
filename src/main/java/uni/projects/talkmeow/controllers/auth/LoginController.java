@@ -29,25 +29,19 @@ import static org.springframework.security.web.context.HttpSessionSecurityContex
 @Controller
 public class LoginController {
 
+    private final AuthenticationManager authenticationManager;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     private HttpSession httpSession;
-
     @Autowired
     private GlobalAttributeService globalAttributeService;
-
     @Autowired
     private BannedService bannedService;
-
-    private final AuthenticationManager authenticationManager;
 
     public LoginController(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -74,7 +68,7 @@ public class LoginController {
             if (user == null) {
                 user = userRepository.findByEmail(loginForm.getUsername());
             }
-            if (user.getUserStatus() != UserStatus.ACTIVE){
+            if (user.getUserStatus() != UserStatus.ACTIVE) {
                 if (user.getUserStatus() == UserStatus.TEMPORARILY_BANNED) {
                     if (bannedService.getLastUserBan(user).getBanTimeEnd().isBefore(LocalDateTime.now())) {
                         bannedService.unbanUser(user.getId());

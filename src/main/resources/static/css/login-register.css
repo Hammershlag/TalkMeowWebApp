@@ -65,6 +65,7 @@ label {
     height: 100px;
     border: 2px solid black;
 }
+
 .avatar-item label {
     cursor: pointer;
     max-width: 100px;

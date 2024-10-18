@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{app.name} + ' - Profile'"></title>
+    <th:block th:insert="~{fragments/header :: header}"></th:block>
+    <link rel="stylesheet" type="text/css" href="/css/profile.css"/>
+    <script src="/javascript/userProfileSettings.js"></script>
+    <script src="/javascript/onPressDisplayAvatars.js"></script>
+</head>
+
+<body>
+<th:block th:insert="~{fragments/new-message-notification :: new-message-notification}"></th:block>
+<th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+
+<h2> User profile</h2>
+<div th:if="${param.error != null}">
+    <div th:if="${param.error[0] == 'invalid_form'}">
+        <p>You must enter both new and old password to change the password.</p>
+    </div>
+    <div th:if="${param.error[0] == 'username_taken'}">
+        <p>The username you are trying to use is already taken.</p>
+    </div>
+    <div th:if="${param.error[0] == 'wrong_username_format'}">
+        <p>Your username must contain only letters, numbers and '_' and must be at least 6 characters long.</p>
+    </div>
+    <div th:if="${param.error[0] == 'wrong_password'}">
+        <p>Incorrect old password.</p>
+    </div>
+    <div th:if="${param.error[0] == 'wrong_password_format'}">
+        <p>Your new password must be at least 8 characters long, contain at least 1 big letter, a special symbol and a number.</p>
+    </div>
+    <div th:if="${param.error[0] == 'invalid_avatar'}">
+        <p>Please select valid avatar.</p>
+    </div>
+</div>
+
+<div class="grid-container" id="settings-container">
+    <div class="avatar-container">
+        <div class="before-click-change-avatar">
+            <img th:src="@{/image/avatar/{id}(id=${currentUser.avatar.id})}" id="user-avatar-profile" alt="Avatar Image"/>
+            <div>
+                <a href="#" class="button" id='avatar-change-button'>Change Avatar</a>
+            </div>
+        </div>
+
+    <div class="avatar-selection-container" id="avatar-selection-container">
+            <p> Press "Submit" to confirm avatar change</p>
+        <form id="avatar-change-form" th:action="@{/profile/avatar-change}" method="post" class="register-form">
+            <div class="avatars">
+                <div class="avatar-selection">
+                    <div>
+                        <label for="furColor">Fur Color:</label>
+                        <select id="furColor" name="furColor">
+                            <option value="">All</option>
+                            <option th:each="color : ${color}" th:value="${color}" th:text="${color}"></option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="eyeColor">Eye Color:</label>
+                        <select id="eyeColor" name="eyeColor">
+                            <option value="">All</option>
+                            <option th:each="color : ${color}" th:value="${color}" th:text="${color}"></option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="pattern">Pattern:</label>
+                        <select id="pattern" name="pattern">
+                            <option value="">All</option>
+                            <option th:each="pattern : ${pattern}" th:value="${pattern}" th:text="${pattern}"></option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="breed">Breed:</label>
+                        <select id="breed" name="breed">
+                            <option value="">All</option>
+                            <option th:each="breed : ${breed}" th:value="${breed}" th:text="${breed}"></option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="age">Age:</label>
+                        <select id="age" name="age">
+                            <option value="">All</option>
+                            <option th:each="age : ${age}" th:value="${age}" th:text="${age}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="avatar-selection-view">
+                    <p>Select Avatar:</p>
+                    <th:block th:insert="~{fragments/avatarList :: avatarList}"></th:block>
+                </div>
+                <button type="submit" class="submit-button" style="max-width: fit-content; margin-top: 10px">Submit</button>
+                <script src="/javascript/buttonPress.js"></script>
+
+            </div>
+        </form>
+    </div>
+
+    </div>
+    <script src="/javascript/registerFilterAvatars.js"></script>
+
+
+    <div>
+        <form th:action="@{/profile/change}" method="post" onsubmit="return validateForm()">
+            <p>E-mail:
+                <label for="emailInput"></label><input type="text" id="emailInput" class="input" name="email" th:value="${currentUser.getEmail()}" disabled="disabled"/>
+                <button type="button" class="edit-button" onclick="enableEditing()">&#9998;</button> <!-- Pencil icon -->
+            </p>
+
+            <p>Username:
+                <label for="usernameInput"></label><input type="text" id="usernameInput" class="input" name="newUsername" th:value="${currentUser.getUsername()}" disabled="disabled"/>
+            </p>
+            <div id="passwordEncrypted" >
+                <p>Password: ************</p>
+            </div>
+            <div id="passwordChange" style="display:none;">
+                <p>Password:</p>
+                <label for="oldPasswordInput"></label><input type="password" id="oldPasswordInput" class="input" name="oldPassword" placeholder="Old password"/> <br/>
+                <label for="newPasswordInput"></label><input type="password" id="newPasswordInput" class="input" name="newPassword" placeholder="New password"/> <br/>
+            </div>
+            <br/>
+
+            <input type="submit" id="submitButton" class="submit-button" value="Submit" style="display:none;"/>
+        </form>
+    </div>
+
+</div>
+
+
+<th:block th:insert="~{fragments/back-button :: back-button}"></th:block>
+<th:block th:insert="~{fragments/paw-prints :: paw-prints}"></th:block>
+
+</body>
+</html>

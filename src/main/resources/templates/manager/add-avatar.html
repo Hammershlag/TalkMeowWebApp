@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Avatar</title>
+    <th:block th:insert="~{fragments/header :: header}"></th:block>
+    <link rel="stylesheet" href="/css/manager-add-avatar.css">
+</head>
+<body>
+<th:block th:insert="~{fragments/new-message-notification :: new-message-notification}"></th:block>
+<th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+<div class="container">
+    <h2>Add Avatar</h2>
+    <div class="error-message" style="color: red;" th:if="${param.errot != null}">
+        <p th:if="${param.error[0] == 'image_required'}">Image is required.</p>
+        <p th:if="${param.error[0] == 'fur_color_required'}">Fur color is required.</p>
+        <p th:if="${param.error[0] == 'eye_color_required'}">Eye color is required.</p>
+        <p th:if="${param.error[0] == 'pattern_required'}">Pattern is required.</p>
+        <p th:if="${param.error[0] == 'breed_required'}">Breed is required.</p>
+        <p th:if="${param.error[0] == 'age_required'}">Age is required.</p>
+        <p th:if="${param.error[0] == 'source_required'}">Source is required.</p>
+    </div>
+    <form action="/manager/add-avatar" method="post" enctype="multipart/form-data">
+
+        <div class="params-container">
+            <div>
+                <label for="furColor">Fur Color:</label>
+                <select id="furColor" name="furColor">
+                    <option th:each="color : ${color}" th:value="${color}" th:text="${color}"></option>
+                </select>
+            </div>
+
+            <div>
+                <label for="eyeColor">Eye Color:</label>
+                <select id="eyeColor" name="eyeColor">
+                    <option th:each="color : ${color}" th:value="${color}" th:text="${color}"></option>
+                </select>
+            </div>
+
+            <div>
+                <label for="pattern">Pattern:</label>
+                <select id="pattern" name="pattern">
+                    <option th:each="pattern : ${pattern}" th:value="${pattern}" th:text="${pattern}"></option>
+                </select>
+            </div>
+
+            <div>
+                <label for="breed">Breed:</label>
+                <select id="breed" name="breed">
+                    <option th:each="breed : ${breed}" th:value="${breed}" th:text="${breed}"></option>
+                </select>
+            </div>
+
+            <div>
+                <label for="age">Age:</label>
+                <select id="age" name="age">
+                    <option th:each="age : ${age}" th:value="${age}" th:text="${age}"></option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="image-data-container">
+            <div>
+                <label for="imageData">Avatar Image:</label><br>
+                <input type="file" id="imageData" name="imageData" accept="image/jpeg,image/png,image/jpg">
+            </div>
+
+            <div>
+                <label for="source">Source:</label>
+                <input type="text" id="source" name="source">
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="button submit-button">Add Avatar</button>
+        </div>
+    </form>
+</div>
+<th:block th:insert="~{fragments/paw-prints :: paw-prints}"></th:block>
+<th:block th:insert="~{fragments/back-button :: back-button}"></th:block>
+
+</body>
+</html>

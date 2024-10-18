@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Conversation</title>
+    <th:block th:insert="~{fragments/header :: header}"></th:block>
+    <link rel="stylesheet" href="/css/messages.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script>
+        let stompClient = null;
+
+        function connect() {
+            const socket = new SockJS('/ws');
+            stompClient = Stomp.over(socket);
+
+            stompClient.connect({}, function(frame) {
+                console.log('Connected: ' + frame);
+
+                const currentUser = document.getElementById('current-username').className;
+                const otherUser = document.getElementById('other-username').className;
+
+                stompClient.subscribe('/user/' + currentUser + '-' + otherUser + '/specific', function(messageOutput) {
+                    showMessageOutput(JSON.parse(messageOutput.body), true);
+                });
+
+                stompClient.subscribe('/user/' + currentUser + '-' + otherUser + '/status', function(changeStatus) {
+                    console.log('Status changed: ' + changeStatus);
+                    const messagesElement = document.getElementById('messages');
+                    const lastStatus = messagesElement.querySelector('.status');
+                    if (lastStatus) {
+                        lastStatus.textContent = 'Status: ' + changeStatus.body;
+                    }
+                });
+
+            });
+        }
+
+        function formatTimestamp(timestamp) {
+            const date = new Date(timestamp);
+            const hours = String(date.getUTCHours()).padStart(2, '0');
+            const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+            const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+            return `${hours}:${minutes}:${seconds}`;
+        }
+
+        function showMessageOutput(message) {
+            const messageContainer = document.createElement('div');
+            messageContainer.innerHTML = `
+        <div>
+            <div class="message received">
+                <div class="message-image">
+                    <img src="/image/avatar/${message.sender.avatar.id}" alt="Profile picture"/>
+                </div>
+                <div class="message-content">
+                    <p>${message.messageContent}</p>
+                    <small>${formatTimestamp(message.timestamp)}</small>
+                </div>
+            </div>
+        </div>
+    `;
+
+            const messagesElement = document.getElementById('messages');
+            if (messagesElement) {
+                messagesElement.appendChild(messageContainer);
+            } else {
+                sleep(2500).then(() => {
+                    location.reload();
+                });
+            }
+
+            if (message.receiver.username === document.getElementById('current-username').className) {
+                fetch('/api/messages/status', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        id: message.id
+                    })
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        console.log('Message status updated to SEEN');
+                    })
+                    .catch(error => {
+                        console.error('Error updating message status:', error);
+                    });
+            }
+        }
+
+
+
+
+            function sendMessage(event) {
+            event.preventDefault();
+            const messageContent = document.querySelector('textarea[name="messageContent"]').value;
+            const receiverUsername = document.querySelector('input[name="username"]').value;
+
+            const placeholderMessage = document.createElement('div');
+            placeholderMessage.className = 'message sent';
+            placeholderMessage.innerHTML = `
+        <p>${messageContent}</p>
+        <small>${new Date().toLocaleTimeString()}</small>
+        <small class="status">Status: Sending...</small>
+    `;
+
+            const messagesElement = document.getElementById('messages');
+            if (messagesElement) {
+                messagesElement.appendChild(placeholderMessage);
+            }
+
+            fetch('/api/messages/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    username: receiverUsername,
+                    messageContent: messageContent
+                })
+            })
+                .then(response => response.text())
+                .then(data => {
+                    if (data) {
+                        const newMessageElement = document.createElement('div');
+                        newMessageElement.innerHTML = data;
+                        messagesElement.replaceChild(newMessageElement.firstChild, placeholderMessage);
+                        document.querySelector('textarea[name="messageContent"]').value = '';
+                    } else {
+                        console.error('Failed to send message:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error sending message:', error);
+                });
+        }
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            connect();
+            const messageContent = document.querySelector('textarea[name="messageContent"]');
+            messageContent.addEventListener('input', checkMessageContent);
+            checkMessageContent();
+
+            document.querySelector('form').addEventListener('submit', sendMessage);
+        });
+
+        function checkMessageContent() {
+            const messageContent = document.querySelector('textarea[name="messageContent"]');
+            const sendButton = document.querySelector('button[type="submit"]');
+            sendButton.disabled = messageContent.value.trim() === '';
+        }
+    </script>
+</head>
+<body>
+<th:block th:insert="~{fragments/new-message-notification :: new-message-notification}"></th:block>
+<th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+
+<input type="hidden" id="current-username" th:classappend="${#authentication.name}"/>
+<input type="hidden" id="other-username" th:classappend="${otherUser.username}"/>
+<h1>Conversation with <span th:text="${otherUser.username}"></span></h1>
+<div id="messages">
+    <div th:each="message, iterStat : ${messages}">
+        <th:block th:replace="~{fragments/messageFragment :: messageFragment(
+            messageContent=${message.messageContent},
+            timestamp=${message.timestamp},
+            sentByLoggedInUser=${message.sentByLoggedInUser},
+            status=${message.status},
+            last=${iterStat.last},
+            otherUser=${message.getSender()})}">
+        </th:block>
+    </div>
+</div>
+
+<form class="send-message">
+    <input type="hidden" name="username" th:value="${otherUser.username}"/>
+    <textarea name="messageContent" placeholder="Enter message" required></textarea>
+    <button type="submit" class="button">Send</button>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            scrollToBottom();
+            const messageContent = document.querySelector('textarea[name="messageContent"]');
+            messageContent.addEventListener('input', checkMessageContent);
+            checkMessageContent();
+
+            document.querySelector('form').addEventListener('submit', sendMessage);
+
+            messageContent.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    sendMessage(event);
+                    sleep(100).then(() => scrollToBottom());
+                    scrollToBottom();
+                }
+            });
+        });
+
+        function scrollToBottom() {
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+</form>
+
+<th:block th:insert="~{fragments/back-button :: back-button}"></th:block>
+
+</body>
+</html>

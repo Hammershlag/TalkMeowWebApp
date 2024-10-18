@@ -1,0 +1,43 @@
+.container > form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container > form > div {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.avatars-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
+    gap: 15px;
+}
+
+.avatar {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    margin-bottom: 10px;
+    height: 100%;
+    background-color: #e0f0d0;
+}
+
+.avatar .avatar-info {
+    margin-top: 10px;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.avatar .avatar-image img{
+    width: inherit;
+}

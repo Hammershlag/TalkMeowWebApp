@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+    <th:block th:insert="~{fragments/header :: header}"></th:block>
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="/javascript/buttonPress.js"></script>
+
+</head>
+<body>
+<th:block th:insert="~{fragments/new-message-notification :: new-message-notification}"></th:block>
+<th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+
+<div class="container">
+    <h2>All Users</h2>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Status</th>
+            <th>Ban Strike</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.userStatus}"></td>
+            <td th:text="${user.banStrike}"></td>
+            <td>
+                <a th:href="@{'/admin/user/' + ${user.id} + '/messages'}" class="submit-button">View Messages</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<th:block th:insert="~{fragments/paw-prints :: paw-prints}"></th:block>
+<th:block th:insert="~{fragments/back-button :: back-button}"></th:block>
+
+</body>
+</html>

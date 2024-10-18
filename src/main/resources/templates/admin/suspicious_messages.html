@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify Suspicious Messages</title>
+    <th:block th:insert="~{fragments/header :: header}"></th:block>
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="/javascript/buttonPress.js"></script>
+</head>
+<body>
+<th:block th:insert="~{fragments/new-message-notification :: new-message-notification}"></th:block>
+<th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+
+<div class="container">
+    <h2>Suspicious Messages Needing Verification</h2>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Message Content</th>
+            <th>Sender</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="message : ${messages}">
+            <td th:text="${message.messageContent}"></td>
+            <td th:text="${message.sender.username}"></td>
+            <td class="buttons-segment">
+                <form th:action="@{'/admin/suspicious_messages/approve/' + ${message.id}}" method="post" style="display:inline;">
+                    <button type="submit" class="submit-button">Approve</button>
+                </form>
+
+                <form th:action="@{'/admin/suspicious_messages/inappropriate/' + ${message.id}}" method="post" style="display:inline;">
+                    <button type="submit" class="submit-button">Mark Inappropriate</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/admin/home" class="button">Back to Admin Dashboard</a>
+</div>
+
+
+<th:block th:insert="~{fragments/paw-prints :: paw-prints}"></th:block>
+<th:block th:insert="~{fragments/back-button :: back-button}"></th:block>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{app.name} + ' - Manager Panel'"></title>
+    <th:block th:insert="~{fragments/header :: header}"></th:block>
+</head>
+<body>
+<th:block th:insert="~{fragments/new-message-notification :: new-message-notification}"></th:block>
+<th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+<div class="container">
+    <h2>Manager dashboard</h2>
+    <a href="/manager/avatars" class="button">View Avatars</a>
+    <a href="/manager/add-avatar" class="button">Add Avatar</a>
+</div>
+<th:block th:insert="~{fragments/paw-prints :: paw-prints}"></th:block>
+<th:block th:insert="~{fragments/back-button :: back-button}"></th:block>
+
+</body>
+</html>

@@ -18,8 +18,8 @@ function getCurrentUserAndSetClass() {
         .catch(error => console.error('Error fetching current user:', error));
 }
 
-loadScript('https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js', function() {
-    loadScript('https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js', function() {
+loadScript('https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js', function () {
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js', function () {
         getCurrentUserAndSetClass();
 
         const socket = new SockJS('/ws');

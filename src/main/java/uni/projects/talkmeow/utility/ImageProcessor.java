@@ -1,8 +1,6 @@
 package uni.projects.talkmeow.utility;
 
 import org.imgscalr.Scalr;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.util.StreamUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,7 +8,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class ImageProcessor {
 
@@ -36,7 +33,7 @@ public class ImageProcessor {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         try {
             ImageIO.write(image, formatName, stream);
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return stream.toByteArray();

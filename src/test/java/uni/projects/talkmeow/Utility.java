@@ -10,26 +10,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class Utility {
 
+    public static final String placeholderImagePath = "src/main/resources/static/images/test_placeholder.png";
+    public static final String searchUsername = "admin";
     public static String username = "wiki";
     public static String password = "wiki";
     public static String email = "wiki@wiki.wiki";
-
     public static String invalidUsername = randomStringUsername(16);
     public static String invalidPassword = randomString(16);
-
     public static String adminUsername = "admin";
     public static String adminPassword = "admin";
-
     public static String managerUsername = "manager";
     public static String managerPassword = "manager";
-
     public static String newUsername = randomStringUsername(16);
     public static String newPassword = "ThisIsAValidPassword123@!Please";
     public static String newEmail = randomStringEmail(16);
     public static String newSecurityQuestion = "What is your pet's name?";
     public static String newSecurityAnswer = "Fluffy";
     public static String newAvatarId = "1";
-
     public static String invalidUsernameReg = randomStringUsername(4);
     public static String invalidEmailFormatReg = "invalidEmail";
     public static String shortPassword = "Pa1@";
@@ -38,12 +35,6 @@ public class Utility {
     public static String noNumberPassword = "Password@word";
     public static String noLowercasePassword = "PASSWORD@123";
     public static String invalidAvatarId = "9999999";
-
-    public static final String placeholderImagePath = "src/main/resources/static/images/test_placeholder.png";
-
-    public static final String searchUsername = "admin";
-
-
 
     public static MockHttpSession login(String username, String password, MockMvc mockMvc) throws Exception {
         return (MockHttpSession) mockMvc.perform(post("/login")

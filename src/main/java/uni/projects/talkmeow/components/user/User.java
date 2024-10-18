@@ -4,11 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uni.projects.talkmeow.components.Banned;
 import uni.projects.talkmeow.components.avatar.Avatar;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

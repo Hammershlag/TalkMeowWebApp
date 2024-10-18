@@ -17,7 +17,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -125,6 +126,7 @@ public class ManagerTests {
                 .andExpect(xpath("//div[@class='avatar-info']/p/span[text()='ORANGE']").exists())
                 .andExpect(xpath("//div[@class='avatar-info']/p/span[text()='RAGDOLL']").exists());
     }
+
     @Test
     @DisplayName("Should return error when image is not provided")
     void shouldReturnErrorWhenImageIsNotProvided() throws Exception {

@@ -134,10 +134,18 @@ h3 {
 }
 
 @keyframes fadeInOut {
-    0% { opacity: 0; }
-    30% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 0; }
+    0% {
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 select {
@@ -165,7 +173,8 @@ label {
     left: min(2vw, 20px);
     z-index: 1000;
 }
-.back-button-container{
+
+.back-button-container {
     width: min(10vw, 40px);
     height: min(10vw, 40px);
     background-color: #c0dbc4;
@@ -176,13 +185,16 @@ label {
     align-items: center;
 
 }
+
 .back-button-container:hover {
     background-color: #b6cec7;
     cursor: pointer;
 }
+
 .back-button-container:active {
     background-color: #94a9b0;
 }
+
 .back-button {
     text-decoration: none;
     color: black;
@@ -215,10 +227,18 @@ label {
 }
 
 @keyframes fadeInOutIn {
-    0% { opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { opacity: 0; }
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 

@@ -10,7 +10,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import uni.projects.talkmeow.repositories.UserRepository;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -45,7 +44,6 @@ public class RegisterTests {
                 .andExpect(content().string(containsString("Security Question")))
                 .andExpect(content().string(containsString("Security Answer")));
     }
-
 
 
     @Test

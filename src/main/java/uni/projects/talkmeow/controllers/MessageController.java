@@ -1,6 +1,5 @@
 package uni.projects.talkmeow.controllers;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -13,15 +12,12 @@ import uni.projects.talkmeow.components.message.Message;
 import uni.projects.talkmeow.components.message.MessageStatus;
 import uni.projects.talkmeow.components.user.StrippedUser;
 import uni.projects.talkmeow.components.user.User;
-import uni.projects.talkmeow.repositories.MessageRepository;
 import uni.projects.talkmeow.services.CustomUserDetailsService;
 import uni.projects.talkmeow.services.InappropriateMessageService;
 import uni.projects.talkmeow.services.MessageService;
 import uni.projects.talkmeow.utility.MessageSupervisor;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -29,17 +25,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/messages")
 public class MessageController {
 
+    private final MessageSupervisor messageSupervisor = new MessageSupervisor();
     @Autowired
     private MessageService messageService;
-
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
-
-    private final MessageSupervisor messageSupervisor = new MessageSupervisor();
-
     @Autowired
     private InappropriateMessageService inappropriateMessageService;
 
@@ -182,8 +174,8 @@ public class MessageController {
     }
 
     public class UserMessage {
-        private User user;
-        private Message message;
+        private final User user;
+        private final Message message;
 
         public UserMessage(User user, Message message) {
             this.user = user;

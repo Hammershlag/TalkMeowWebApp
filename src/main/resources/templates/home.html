@@ -6,38 +6,38 @@
     <th:block th:insert="~{fragments/header :: header}"></th:block>
 </head>
 <body>
-    <th:block th:insert="~{fragments/new-message-notification :: new-message-notification}"></th:block>
-    <nav th:insert="~{fragments/navbar :: navbar}"></nav>
-    <div>
-        <div class="grid-container" th:if="${isLoggedIn && user != null}">
-            <h2>Welcome, <span th:text="${user.username}"></span>!</h2>
+<th:block th:insert="~{fragments/new-message-notification :: new-message-notification}"></th:block>
+<nav th:insert="~{fragments/navbar :: navbar}"></nav>
+<div>
+    <div class="grid-container" th:if="${isLoggedIn && user != null}">
+        <h2>Welcome, <span th:text="${user.username}"></span>!</h2>
 
-            <div class="home-main-container">
-                <div class="grid-item">
-                    <img src="/images/WelcomeCatTransparent.png" alt="Welcome Cat" width="350" height="350"/>
-                </div>
-                <div class="grid-item">
-                    <div class="grid-item-buttons">
-                        <a href="/api/messages/conversation/all" class="button">All Conversations</a>
-                        <a href="/profile" class="button">User Profile</a>
-                        <a href="/logout" class="button">Logout</a>
-                    </div>
+        <div class="home-main-container">
+            <div class="grid-item">
+                <img alt="Welcome Cat" height="350" src="/images/WelcomeCatTransparent.png" width="350"/>
+            </div>
+            <div class="grid-item">
+                <div class="grid-item-buttons">
+                    <a class="button" href="/api/messages/conversation/all">All Conversations</a>
+                    <a class="button" href="/profile">User Profile</a>
+                    <a class="button" href="/logout">Logout</a>
                 </div>
             </div>
         </div>
-
-        <div class="container" th:if="${!isLoggedIn || user == null}">
-            <img src="/images/TalkMeowLogoTransparent.png" alt="Talk Meow Logo" width="300" height="300"/>
-            <h1>Talk Meow</h1>
-            <a href="/register/form" class="button">Register</a>
-            <a href="/login/form" class="button">Login</a>
-        </div>
-
-        <div th:insert="~{fragments/paw-prints :: paw-prints}"></div>
-
-
     </div>
-    <th:block th:insert="~{fragments/back-button :: back-button}"></th:block>
+
+    <div class="container" th:if="${!isLoggedIn || user == null}">
+        <img alt="Talk Meow Logo" height="300" src="/images/TalkMeowLogoTransparent.png" width="300"/>
+        <h1>Talk Meow</h1>
+        <a class="button" href="/register/form">Register</a>
+        <a class="button" href="/login/form">Login</a>
+    </div>
+
+    <div th:insert="~{fragments/paw-prints :: paw-prints}"></div>
+
+
+</div>
+<th:block th:insert="~{fragments/back-button :: back-button}"></th:block>
 
 </body>
 </html>

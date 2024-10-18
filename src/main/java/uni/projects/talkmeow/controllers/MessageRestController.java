@@ -11,8 +11,6 @@ import uni.projects.talkmeow.repositories.MessageRepository;
 import uni.projects.talkmeow.services.CustomUserDetailsService;
 import uni.projects.talkmeow.services.MessageService;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/messages")
 public class MessageRestController {

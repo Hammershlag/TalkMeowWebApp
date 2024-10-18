@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uni.projects.talkmeow.components.Banned;
 import uni.projects.talkmeow.components.user.User;
-import uni.projects.talkmeow.components.user.UserStatus;
 import uni.projects.talkmeow.repositories.BannedRepository;
 import uni.projects.talkmeow.repositories.UserRepository;
 

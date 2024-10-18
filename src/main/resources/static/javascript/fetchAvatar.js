@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     fetch('/user/currentUser/avatar')
         .then(response => response.text())
         .then(userId => {

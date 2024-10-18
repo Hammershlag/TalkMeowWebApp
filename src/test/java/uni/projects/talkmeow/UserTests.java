@@ -14,8 +14,6 @@ import uni.projects.talkmeow.repositories.MessageRepository;
 import uni.projects.talkmeow.repositories.UserRepository;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

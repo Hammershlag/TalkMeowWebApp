@@ -89,7 +89,7 @@ public class AdminController {
         Banned lastBan = bannedService.getLastUserBan(user);
         List<InappropriateMessage> messages;
         if (lastBan != null) {
-             messages = inappropriateMessageService.getMessagesAfterLastBan(user, lastBan.getBanTime());
+            messages = inappropriateMessageService.getMessagesAfterLastBan(user, lastBan.getBanTime());
         } else {
             messages = inappropriateMessageService.getMessagesBySender(user);
         }

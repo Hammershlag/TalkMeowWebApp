@@ -4,28 +4,28 @@
     <meta charset="UTF-8">
     <title th:text="#{app.name} + ' - Register'"></title>
     <th:block th:insert="~{fragments/header :: header}"></th:block>
-    <link rel="stylesheet" type="text/css" href="/css/login-register.css">
+    <link href="/css/login-register.css" rel="stylesheet" type="text/css">
     <script src="/javascript/buttonPress.js"></script>
 </head>
 <body>
-<th:block th:insert="~{fragments/navbar :: navbar}" ></th:block>
+<th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
 
 <div class="grid-container register-container">
     <div class="register-header-container">
         <h2>Register</h2>
-        <a href="/" class="button" id="register-home-button">Home</a>
+        <a class="button" href="/" id="register-home-button">Home</a>
     </div>
     <div id="error-message-container"></div>
 
     <p>Choose your avatar. You can search through the database of avatars using filters below:</p>
-    <form th:action="@{/register}" method="post" th:object="${newUser}" class="register-form">
+    <form class="register-form" method="post" th:action="@{/register}" th:object="${newUser}">
         <div class="avatars">
             <div class="avatar-selection">
                 <div>
                     <label for="furColor">Fur Color:</label>
                     <select id="furColor" name="furColor">
                         <option value="">All</option>
-                        <option th:each="color : ${color}" th:value="${color}" th:text="${color}"></option>
+                        <option th:each="color : ${color}" th:text="${color}" th:value="${color}"></option>
                     </select>
                 </div>
 
@@ -33,7 +33,7 @@
                     <label for="eyeColor">Eye Color:</label>
                     <select id="eyeColor" name="eyeColor">
                         <option value="">All</option>
-                        <option th:each="color : ${color}" th:value="${color}" th:text="${color}"></option>
+                        <option th:each="color : ${color}" th:text="${color}" th:value="${color}"></option>
                     </select>
                 </div>
 
@@ -41,7 +41,7 @@
                     <label for="pattern">Pattern:</label>
                     <select id="pattern" name="pattern">
                         <option value="">All</option>
-                        <option th:each="pattern : ${pattern}" th:value="${pattern}" th:text="${pattern}"></option>
+                        <option th:each="pattern : ${pattern}" th:text="${pattern}" th:value="${pattern}"></option>
                     </select>
                 </div>
 
@@ -49,7 +49,7 @@
                     <label for="breed">Breed:</label>
                     <select id="breed" name="breed">
                         <option value="">All</option>
-                        <option th:each="breed : ${breed}" th:value="${breed}" th:text="${breed}"></option>
+                        <option th:each="breed : ${breed}" th:text="${breed}" th:value="${breed}"></option>
                     </select>
                 </div>
 
@@ -57,7 +57,7 @@
                     <label for="age">Age:</label>
                     <select id="age" name="age">
                         <option value="">All</option>
-                        <option th:each="age : ${age}" th:value="${age}" th:text="${age}"></option>
+                        <option th:each="age : ${age}" th:text="${age}" th:value="${age}"></option>
                     </select>
                 </div>
             </div>
@@ -75,29 +75,29 @@
         <br>
 
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" th:field="*{username}" class="input" required><br><br>
+        <input class="input" id="username" name="username" required th:field="*{username}" type="text"><br><br>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" th:field="*{email}" class="input" required><br><br>
+        <input class="input" id="email" name="email" required th:field="*{email}" type="email"><br><br>
 
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" th:field="*{password}" class="input" required><br><br>
+        <input class="input" id="password" name="password" required th:field="*{password}" type="password"><br><br>
 
         <p>In case you forget your password in the future, please add a security question and the answer to this question.</p>
         <label for="securityQuestion">Security Question:</label>
-        <input type="text" id="securityQuestion" name="securityQuestion" th:field="*{securityQuestion}" class="input" required><br><br>
+        <input class="input" id="securityQuestion" name="securityQuestion" required th:field="*{securityQuestion}" type="text"><br><br>
 
         <label for="securityAnswer">Security Answer:</label>
-        <input type="text" id="securityAnswer" name="securityAnswer" th:field="*{securityAnswer}" class="input" required><br><br>
+        <input class="input" id="securityAnswer" name="securityAnswer" required th:field="*{securityAnswer}" type="text"><br><br>
 
         <br>
-        <input type="submit" class="submit-button" value="Submit">
+        <input class="submit-button" type="submit" value="Submit">
     </form>
 
     <script src="/javascript/registerFilterAvatars.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const params = new URLSearchParams(window.location.search);
             const errorMessageContainer = document.getElementById("error-message-container");
 

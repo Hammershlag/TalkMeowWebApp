@@ -12,8 +12,6 @@ import uni.projects.talkmeow.components.user.User;
 import uni.projects.talkmeow.services.AvatarService;
 import uni.projects.talkmeow.services.CustomUserDetailsService;
 
-import java.util.List;
-
 import static uni.projects.talkmeow.utility.Defaults.*;
 
 @Controller
@@ -30,10 +28,10 @@ public class RegisterController {
 
     @GetMapping("/register/form")
     public String registerForm(Model model, HttpSession session) {
-        model.addAttribute("user", (User) session.getAttribute("user"));
+        model.addAttribute("user", session.getAttribute("user"));
         model.addAttribute("newUser", new User());
 
-        model.addAttribute("avatars", avatarService.getFilteredAvatars(null,null,null,null,null)); // Retrieve all avatars
+        model.addAttribute("avatars", avatarService.getFilteredAvatars(null, null, null, null, null)); // Retrieve all avatars
         model.addAttribute("color", Color.values());
         model.addAttribute("eyeColors", Color.values());
         model.addAttribute("pattern", Pattern.values());

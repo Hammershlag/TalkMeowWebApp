@@ -1,6 +1,5 @@
 package uni.projects.talkmeow;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,11 +13,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class TalkMeowApplication implements ApplicationContextAware {
 
     private static ConfigurableApplicationContext context;
-
-    @Override
-    public void setApplicationContext(ApplicationContext ctx) {
-        context = (ConfigurableApplicationContext) ctx;
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(TalkMeowApplication.class, args);
@@ -34,5 +28,10 @@ public class TalkMeowApplication implements ApplicationContextAware {
 
         thread.setDaemon(false);
         thread.start();
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext ctx) {
+        context = (ConfigurableApplicationContext) ctx;
     }
 }

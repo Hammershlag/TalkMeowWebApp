@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import uni.projects.talkmeow.components.avatar.*;
 import uni.projects.talkmeow.components.user.User;
 import uni.projects.talkmeow.repositories.AvatarRepository;
@@ -32,7 +34,7 @@ public class UserProfileController {
 
     @GetMapping("/profile")
     public String getProfileAttributes(Model model, HttpSession session) {
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         model.addAttribute("currentUser", new User(user));
         model.addAttribute("age", Age.values());
         model.addAttribute("breed", Breed.values());
@@ -43,7 +45,7 @@ public class UserProfileController {
 
     @PostMapping("/profile/avatar-change")
     public String changeAvatar(@RequestParam(value = "selectedAvatarId", required = false, defaultValue = "-1") Long avatarId, HttpSession session) {
-        User currentUser = new User((User)session.getAttribute("user"));
+        User currentUser = new User((User) session.getAttribute("user"));
         if (avatarId == -1)
             return "redirect:/profile?error=invalid_avatar";
 
@@ -57,16 +59,16 @@ public class UserProfileController {
     @PostMapping("/profile/change")
     public String changeUserAttributes(@RequestParam(required = false) String newUsername,
                                        @RequestParam(required = false) String newPassword,
-                                       @RequestParam (required = false) String oldPassword,
+                                       @RequestParam(required = false) String oldPassword,
                                        HttpSession session) {
-        User currentUser = new User((User)session.getAttribute("user"));
-        if((oldPassword.isEmpty() && !newPassword.isEmpty()) || (!oldPassword.isEmpty() && newPassword.isEmpty()))
+        User currentUser = new User((User) session.getAttribute("user"));
+        if ((oldPassword.isEmpty() && !newPassword.isEmpty()) || (!oldPassword.isEmpty() && newPassword.isEmpty()))
             return "redirect:/profile?error=invalid_form";
-        if(newUsername != null)
-            if(customUserDetailsService.existsByUsername(newUsername) &&
+        if (newUsername != null)
+            if (customUserDetailsService.existsByUsername(newUsername) &&
                     !(currentUser.getUsername().equals(newUsername)))
                 return "redirect:/profile?error=username_taken";
-            else if(newUsername.matches(usernameRegex) && newUsername.length() > 6)
+            else if (newUsername.matches(usernameRegex) && newUsername.length() > 6)
                 currentUser.setUsername(newUsername);
             else
                 return "redirect:/profile?error=wrong_username_format";
@@ -74,7 +76,7 @@ public class UserProfileController {
         if (!newPassword.isEmpty() && !oldPassword.isEmpty())
             if (!customUserDetailsService.authenticateOldPassword(oldPassword, currentUser, passwordEncoder))
                 return "redirect:/profile?error=wrong_password";
-            else if(newPassword.matches(passwordRegex))
+            else if (newPassword.matches(passwordRegex))
                 customUserDetailsService.changePassword(currentUser, newPassword, passwordEncoder);
             else
                 return "redirect:/profile?error=wrong_password_format";

@@ -1,6 +1,5 @@
 package uni.projects.talkmeow.services;
 
-import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;

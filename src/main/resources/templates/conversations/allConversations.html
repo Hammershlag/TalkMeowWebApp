@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>All Conversations</title>
     <th:block th:insert="~{fragments/header :: header}"></th:block>
-    <link rel="stylesheet" href="/css/conversations.css">
+    <link href="/css/conversations.css" rel="stylesheet">
 </head>
 <body>
 <th:block th:insert="~{fragments/new-message-notification :: new-message-notification}"></th:block>
@@ -19,11 +19,11 @@
                     <img th:src="'/image/avatar/'+${userMessage.user.avatar.id}">
                 </div>
                 <div class="message-info">
-                    <span th:text="${userMessage.user.username}" class="username"></span>
+                    <span class="username" th:text="${userMessage.user.username}"></span>
                     <span th:classappend="${userMessage.user.id == userMessage.message.sender.id && userMessage.message.status.toString().equals('SENT')} ? 'bold' : ${userMessage.message.status}" th:text="${userMessage.message.messageContent}"></span>
                     <div>
                         <span th:text="${#temporals.format(userMessage.message.timestamp, 'HH:mm:ss')}"></span>
-                        <span th:if="${userMessage.user.id == userMessage.message.receiver.id}" th:text="${userMessage.message.status}" class="status"></span>
+                        <span class="status" th:if="${userMessage.user.id == userMessage.message.receiver.id}" th:text="${userMessage.message.status}"></span>
                     </div>
                 </div>
             </div>

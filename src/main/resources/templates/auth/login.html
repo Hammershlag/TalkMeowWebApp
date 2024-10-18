@@ -4,30 +4,30 @@
     <meta charset="UTF-8"/>
     <title th:text="#{app.name} + ' - Login'"></title>
     <th:block th:insert="~{fragments/header :: header}"></th:block>
-    <link rel="stylesheet" type="text/css" href="/css/login-register.css">
+    <link href="/css/login-register.css" rel="stylesheet" type="text/css">
     <script src="/javascript/buttonPress.js"></script>
 </head>
 <body>
-<th:block th:insert="~{fragments/navbar :: navbar}" ></th:block>
+<th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
 <div class="container">
     <h3>Login</h3>
     <div class="grid-container-row">
-        <a href="/" class="button">Home</a><br>
-        <a href="/register/form" class="button">Register</a>
+        <a class="button" href="/">Home</a><br>
+        <a class="button" href="/register/form">Register</a>
     </div>
     <br>
 
-    <form th:action="@{/login}" th:object="${loginForm}" method="post">
-      
+    <form method="post" th:action="@{/login}" th:object="${loginForm}">
+
         <label for="username">Username or Email:</label>
-        <input type="text" id="username" class="input" th:field="*{username}"><br><br>
-      
+        <input class="input" id="username" th:field="*{username}" type="text"><br><br>
+
         <label for="password">Password:</label>
-        <input type="password" id="password" class="input" th:field="*{password}"><br><br>
+        <input class="input" id="password" th:field="*{password}" type="password"><br><br>
         <label>
             <a href="/password-reset/form">Forgot Password</a>
         </label><br>
-        <input type="submit" class="submit-button" value="Submit">
+        <input class="submit-button" type="submit" value="Submit">
     </form>
 
     <div th:if="${param.error != null and param.error[0] == 'true'}">

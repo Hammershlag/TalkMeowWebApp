@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Conversation</title>
     <th:block th:insert="~{fragments/header :: header}"></th:block>
-    <link rel="stylesheet" href="/css/messages.css">
+    <link href="/css/messages.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script>
@@ -14,17 +14,17 @@
             const socket = new SockJS('/ws');
             stompClient = Stomp.over(socket);
 
-            stompClient.connect({}, function(frame) {
+            stompClient.connect({}, function (frame) {
                 console.log('Connected: ' + frame);
 
                 const currentUser = document.getElementById('current-username').className;
                 const otherUser = document.getElementById('other-username').className;
 
-                stompClient.subscribe('/user/' + currentUser + '-' + otherUser + '/specific', function(messageOutput) {
+                stompClient.subscribe('/user/' + currentUser + '-' + otherUser + '/specific', function (messageOutput) {
                     showMessageOutput(JSON.parse(messageOutput.body), true);
                 });
 
-                stompClient.subscribe('/user/' + currentUser + '-' + otherUser + '/status', function(changeStatus) {
+                stompClient.subscribe('/user/' + currentUser + '-' + otherUser + '/status', function (changeStatus) {
                     console.log('Status changed: ' + changeStatus);
                     const messagesElement = document.getElementById('messages');
                     const lastStatus = messagesElement.querySelector('.status');
@@ -90,9 +90,7 @@
         }
 
 
-
-
-            function sendMessage(event) {
+        function sendMessage(event) {
             event.preventDefault();
             const messageContent = document.querySelector('textarea[name="messageContent"]').value;
             const receiverUsername = document.querySelector('input[name="username"]').value;
@@ -137,9 +135,7 @@
         }
 
 
-
-
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             connect();
             const messageContent = document.querySelector('textarea[name="messageContent"]');
             messageContent.addEventListener('input', checkMessageContent);
@@ -159,8 +155,8 @@
 <th:block th:insert="~{fragments/new-message-notification :: new-message-notification}"></th:block>
 <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
 
-<input type="hidden" id="current-username" th:classappend="${#authentication.name}"/>
-<input type="hidden" id="other-username" th:classappend="${otherUser.username}"/>
+<input id="current-username" th:classappend="${#authentication.name}" type="hidden"/>
+<input id="other-username" th:classappend="${otherUser.username}" type="hidden"/>
 <h1>Conversation with <span th:text="${otherUser.username}"></span></h1>
 <div id="messages">
     <div th:each="message, iterStat : ${messages}">
@@ -176,11 +172,11 @@
 </div>
 
 <form class="send-message">
-    <input type="hidden" name="username" th:value="${otherUser.username}"/>
+    <input name="username" th:value="${otherUser.username}" type="hidden"/>
     <textarea name="messageContent" placeholder="Enter message" required></textarea>
-    <button type="submit" class="button">Send</button>
+    <button class="button" type="submit">Send</button>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             scrollToBottom();
             const messageContent = document.querySelector('textarea[name="messageContent"]');
             messageContent.addEventListener('input', checkMessageContent);
@@ -188,7 +184,7 @@
 
             document.querySelector('form').addEventListener('submit', sendMessage);
 
-            messageContent.addEventListener('keydown', function(event) {
+            messageContent.addEventListener('keydown', function (event) {
                 if (event.key === 'Enter') {
                     event.preventDefault();
                     sendMessage(event);

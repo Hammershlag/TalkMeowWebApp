@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     fetchAvatars();
 
     document.querySelectorAll('select').forEach(select => {
-        select.addEventListener('change', function() {
+        select.addEventListener('change', function () {
             const filters = {
                 furColor: document.getElementById('furColor').value,
                 eyeColor: document.getElementById('eyeColor').value,
@@ -47,7 +47,7 @@ function attachAvatarClickHandlers() {
         const img = item.querySelector('.avatar-image');
         const radio = item.querySelector('input[type="radio"]');
 
-        img.addEventListener('click', function() {
+        img.addEventListener('click', function () {
             document.querySelectorAll('.avatar-image').forEach(img => img.classList.remove('selected'));
 
             img.classList.add('selected');

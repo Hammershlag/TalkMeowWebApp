@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Verify Suspicious Messages</title>
     <th:block th:insert="~{fragments/header :: header}"></th:block>
-    <link rel="stylesheet" href="/css/admin.css">
+    <link href="/css/admin.css" rel="stylesheet">
     <script src="/javascript/buttonPress.js"></script>
 </head>
 <body>
@@ -27,19 +27,19 @@
             <td th:text="${message.messageContent}"></td>
             <td th:text="${message.sender.username}"></td>
             <td class="buttons-segment">
-                <form th:action="@{'/admin/suspicious_messages/approve/' + ${message.id}}" method="post" style="display:inline;">
-                    <button type="submit" class="submit-button">Approve</button>
+                <form method="post" style="display:inline;" th:action="@{'/admin/suspicious_messages/approve/' + ${message.id}}">
+                    <button class="submit-button" type="submit">Approve</button>
                 </form>
 
-                <form th:action="@{'/admin/suspicious_messages/inappropriate/' + ${message.id}}" method="post" style="display:inline;">
-                    <button type="submit" class="submit-button">Mark Inappropriate</button>
+                <form method="post" style="display:inline;" th:action="@{'/admin/suspicious_messages/inappropriate/' + ${message.id}}">
+                    <button class="submit-button" type="submit">Mark Inappropriate</button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <a href="/admin/home" class="button">Back to Admin Dashboard</a>
+    <a class="button" href="/admin/home">Back to Admin Dashboard</a>
 </div>
 
 

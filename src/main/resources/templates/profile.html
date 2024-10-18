@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <title th:text="#{app.name} + ' - Profile'"></title>
     <th:block th:insert="~{fragments/header :: header}"></th:block>
-    <link rel="stylesheet" type="text/css" href="/css/profile.css"/>
+    <link href="/css/profile.css" rel="stylesheet" type="text/css"/>
     <script src="/javascript/userProfileSettings.js"></script>
     <script src="/javascript/onPressDisplayAvatars.js"></script>
 </head>
@@ -38,94 +38,94 @@
 <div class="grid-container" id="settings-container">
     <div class="avatar-container">
         <div class="before-click-change-avatar">
-            <img th:src="@{/image/avatar/{id}(id=${currentUser.avatar.id})}" id="user-avatar-profile" alt="Avatar Image"/>
+            <img alt="Avatar Image" id="user-avatar-profile" th:src="@{/image/avatar/{id}(id=${currentUser.avatar.id})}"/>
             <div>
-                <a href="#" class="button" id='avatar-change-button'>Change Avatar</a>
+                <a class="button" href="#" id='avatar-change-button'>Change Avatar</a>
             </div>
         </div>
 
-    <div class="avatar-selection-container" id="avatar-selection-container">
+        <div class="avatar-selection-container" id="avatar-selection-container">
             <p> Press "Submit" to confirm avatar change</p>
-        <form id="avatar-change-form" th:action="@{/profile/avatar-change}" method="post" class="register-form">
-            <div class="avatars">
-                <div class="avatar-selection">
-                    <div>
-                        <label for="furColor">Fur Color:</label>
-                        <select id="furColor" name="furColor">
-                            <option value="">All</option>
-                            <option th:each="color : ${color}" th:value="${color}" th:text="${color}"></option>
-                        </select>
+            <form class="register-form" id="avatar-change-form" method="post" th:action="@{/profile/avatar-change}">
+                <div class="avatars">
+                    <div class="avatar-selection">
+                        <div>
+                            <label for="furColor">Fur Color:</label>
+                            <select id="furColor" name="furColor">
+                                <option value="">All</option>
+                                <option th:each="color : ${color}" th:text="${color}" th:value="${color}"></option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="eyeColor">Eye Color:</label>
+                            <select id="eyeColor" name="eyeColor">
+                                <option value="">All</option>
+                                <option th:each="color : ${color}" th:text="${color}" th:value="${color}"></option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="pattern">Pattern:</label>
+                            <select id="pattern" name="pattern">
+                                <option value="">All</option>
+                                <option th:each="pattern : ${pattern}" th:text="${pattern}" th:value="${pattern}"></option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="breed">Breed:</label>
+                            <select id="breed" name="breed">
+                                <option value="">All</option>
+                                <option th:each="breed : ${breed}" th:text="${breed}" th:value="${breed}"></option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="age">Age:</label>
+                            <select id="age" name="age">
+                                <option value="">All</option>
+                                <option th:each="age : ${age}" th:text="${age}" th:value="${age}"></option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div>
-                        <label for="eyeColor">Eye Color:</label>
-                        <select id="eyeColor" name="eyeColor">
-                            <option value="">All</option>
-                            <option th:each="color : ${color}" th:value="${color}" th:text="${color}"></option>
-                        </select>
+                    <div class="avatar-selection-view">
+                        <p>Select Avatar:</p>
+                        <th:block th:insert="~{fragments/avatarList :: avatarList}"></th:block>
                     </div>
+                    <button class="submit-button" style="max-width: fit-content; margin-top: 10px" type="submit">Submit</button>
+                    <script src="/javascript/buttonPress.js"></script>
 
-                    <div>
-                        <label for="pattern">Pattern:</label>
-                        <select id="pattern" name="pattern">
-                            <option value="">All</option>
-                            <option th:each="pattern : ${pattern}" th:value="${pattern}" th:text="${pattern}"></option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="breed">Breed:</label>
-                        <select id="breed" name="breed">
-                            <option value="">All</option>
-                            <option th:each="breed : ${breed}" th:value="${breed}" th:text="${breed}"></option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="age">Age:</label>
-                        <select id="age" name="age">
-                            <option value="">All</option>
-                            <option th:each="age : ${age}" th:value="${age}" th:text="${age}"></option>
-                        </select>
-                    </div>
                 </div>
-
-                <div class="avatar-selection-view">
-                    <p>Select Avatar:</p>
-                    <th:block th:insert="~{fragments/avatarList :: avatarList}"></th:block>
-                </div>
-                <button type="submit" class="submit-button" style="max-width: fit-content; margin-top: 10px">Submit</button>
-                <script src="/javascript/buttonPress.js"></script>
-
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
 
     </div>
     <script src="/javascript/registerFilterAvatars.js"></script>
 
 
     <div>
-        <form th:action="@{/profile/change}" method="post" onsubmit="return validateForm()">
+        <form method="post" onsubmit="return validateForm()" th:action="@{/profile/change}">
             <p>E-mail:
-                <label for="emailInput"></label><input type="text" id="emailInput" class="input" name="email" th:value="${currentUser.getEmail()}" disabled="disabled"/>
-                <button type="button" class="edit-button" onclick="enableEditing()">&#9998;</button> <!-- Pencil icon -->
+                <label for="emailInput"></label><input class="input" disabled="disabled" id="emailInput" name="email" th:value="${currentUser.getEmail()}" type="text"/>
+                <button class="edit-button" onclick="enableEditing()" type="button">&#9998;</button> <!-- Pencil icon -->
             </p>
 
             <p>Username:
-                <label for="usernameInput"></label><input type="text" id="usernameInput" class="input" name="newUsername" th:value="${currentUser.getUsername()}" disabled="disabled"/>
+                <label for="usernameInput"></label><input class="input" disabled="disabled" id="usernameInput" name="newUsername" th:value="${currentUser.getUsername()}" type="text"/>
             </p>
-            <div id="passwordEncrypted" >
+            <div id="passwordEncrypted">
                 <p>Password: ************</p>
             </div>
             <div id="passwordChange" style="display:none;">
                 <p>Password:</p>
-                <label for="oldPasswordInput"></label><input type="password" id="oldPasswordInput" class="input" name="oldPassword" placeholder="Old password"/> <br/>
-                <label for="newPasswordInput"></label><input type="password" id="newPasswordInput" class="input" name="newPassword" placeholder="New password"/> <br/>
+                <label for="oldPasswordInput"></label><input class="input" id="oldPasswordInput" name="oldPassword" placeholder="Old password" type="password"/> <br/>
+                <label for="newPasswordInput"></label><input class="input" id="newPasswordInput" name="newPassword" placeholder="New password" type="password"/> <br/>
             </div>
             <br/>
 
-            <input type="submit" id="submitButton" class="submit-button" value="Submit" style="display:none;"/>
+            <input class="submit-button" id="submitButton" style="display:none;" type="submit" value="Submit"/>
         </form>
     </div>
 

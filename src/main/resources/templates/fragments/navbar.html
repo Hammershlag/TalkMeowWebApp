@@ -2,31 +2,31 @@
     <div class="navbar">
         <div class="navbar-left">
             <a href="/">
-                <img src="/images/TalkMeowLogoTransparent.png" alt="App Logo" class="app-logo" width="100" height="100"/>
+                <img alt="App Logo" class="app-logo" height="100" src="/images/TalkMeowLogoTransparent.png" width="100"/>
             </a>
         </div>
         <div class="navbar-center">
             <div th:if="${isLoggedIn && user != null}">
-                <button class="search-toggle" id="search-toggle" aria-label="Toggle Search">
-                    <img src="/images/search-icon.png" alt="Search Icon"/>
+                <button aria-label="Toggle Search" class="search-toggle" id="search-toggle">
+                    <img alt="Search Icon" src="/images/search-icon.png"/>
                 </button>
             </div>
-            <div th:if="${isLoggedIn && user != null}" class="search-bar" id="search-bar">
-                <input type="text" id="search-bar-input" placeholder="Search users by username..." autocomplete="off"/>
+            <div class="search-bar" id="search-bar" th:if="${isLoggedIn && user != null}">
+                <input autocomplete="off" id="search-bar-input" placeholder="Search users by username..." type="text"/>
                 <div id="search-results"></div>
                 <script src="/javascript/search.js"></script>
             </div>
         </div>
         <div class="navbar-right">
-            <div th:if="${!isLoggedIn || user == null}" class="nav-right-container">
-                <a href="/register/form" class="button">Register</a>
-                <a href="/login/form" class="button">Login</a>
+            <div class="nav-right-container" th:if="${!isLoggedIn || user == null}">
+                <a class="button" href="/register/form">Register</a>
+                <a class="button" href="/login/form">Login</a>
             </div>
-            <div th:if="${isLoggedIn && user != null}" class="nav-right-container">
+            <div class="nav-right-container" th:if="${isLoggedIn && user != null}">
                 <a href="/profile">
-                    <img id="user-avatar" src="" alt="User Avatar" class="user-avatar" width="80" height="80" style="border-radius: 50%; border: 1px solid black; margin: 5px"/>
+                    <img alt="User Avatar" class="user-avatar" height="80" id="user-avatar" src="" style="border-radius: 50%; border: 1px solid black; margin: 5px" width="80"/>
                 </a>
-                <a href="/logout" class="button">Logout</a>
+                <a class="button" href="/logout">Logout</a>
             </div>
             <script src="/javascript/fetchAvatar.js"></script>
         </div>

@@ -5,21 +5,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import uni.projects.talkmeow.components.user.User;
 import uni.projects.talkmeow.repositories.UserRepository;
-import uni.projects.talkmeow.services.BannedService;
-import uni.projects.talkmeow.services.InappropriateMessageService;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static uni.projects.talkmeow.Utility.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -36,16 +31,16 @@ public class AdminTests {
     @DisplayName("Admin panel is accessible")
     void adminPanelIsAccessible() throws Exception {
         MockHttpSession session = login(adminUsername, adminPassword, mockMvc);
-           this.mockMvc.perform(get("/admin/home").session(session))
-                   .andExpect(status().isOk());
+        this.mockMvc.perform(get("/admin/home").session(session))
+                .andExpect(status().isOk());
     }
 
     @Test
     @DisplayName("Admin panel is not accessible to non-admin users")
     void adminPanelIsNotAccessibleToNonAdminUsers() throws Exception {
         MockHttpSession session = login(username, password, mockMvc);
-           this.mockMvc.perform(get("/admin/home").session(session))
-                   .andExpect(status().isForbidden());
+        this.mockMvc.perform(get("/admin/home").session(session))
+                .andExpect(status().isForbidden());
     }
 
     @Test

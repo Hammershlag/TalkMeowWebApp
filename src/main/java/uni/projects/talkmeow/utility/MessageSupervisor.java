@@ -1,8 +1,5 @@
 package uni.projects.talkmeow.utility;
 
-import java.util.List;
-import java.util.regex.Pattern;
-
 import static uni.projects.talkmeow.utility.Defaults.prohibitedWords;
 
 public class MessageSupervisor {

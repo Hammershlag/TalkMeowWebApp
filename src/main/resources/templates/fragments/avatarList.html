@@ -1,8 +1,8 @@
 <div id="avatarList" th:fragment="avatarList">
-    <div th:each="avatar : ${avatars}" class="avatar-item">
-        <input type="radio" th:id="'avatar_' + ${avatar.id}" name="selectedAvatarId" th:value="${avatar.id}" style="display: none;">
+    <div class="avatar-item" th:each="avatar : ${avatars}">
+        <input name="selectedAvatarId" style="display: none;" th:id="'avatar_' + ${avatar.id}" th:value="${avatar.id}" type="radio">
         <label th:for="'avatar_' + ${avatar.id}">
-            <img th:src="@{/image/avatar/{id}(id=${avatar.id})}" alt="Avatar Image" width="100" height="100" class="avatar-image"/>
+            <img alt="Avatar Image" class="avatar-image" height="100" th:src="@{/image/avatar/{id}(id=${avatar.id})}" width="100"/>
         </label>
     </div>
 </div>

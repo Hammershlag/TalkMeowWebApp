@@ -24,9 +24,9 @@ public class LoginTests {
     @Test
     @DisplayName("Login form is accessible")
     void loginFormIsAccessible() throws Exception {
-           this.mockMvc.perform(get("/login/form"))
-                   .andExpect(status().isOk())
-                   .andExpect(content().string(containsString("Login")));
+        this.mockMvc.perform(get("/login/form"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Login")));
     }
 
     @Test

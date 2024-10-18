@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -40,6 +38,14 @@ public class DataSourceConfig {
     @Value("${spring.datasource.fallback.driver-class-name}")
     private String fallbackDbDriverClassName;
 
+    public static boolean isDatabaseAvailable(DataSource dataSource) {
+        try (Connection connection = dataSource.getConnection()) {
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
     @Bean
     public DataSource dataSource() {
         DataSource primaryDataSource = createPrimaryDataSource();
@@ -67,13 +73,5 @@ public class DataSourceConfig {
         dataSourceBuilder.username(fallbackDbUsername);
         dataSourceBuilder.password(fallbackDbPassword);
         return dataSourceBuilder.build();
-    }
-
-    public static boolean isDatabaseAvailable(DataSource dataSource) {
-        try (Connection connection = dataSource.getConnection()) {
-            return true;
-        } catch (SQLException e) {
-            return false;
-        }
     }
 }

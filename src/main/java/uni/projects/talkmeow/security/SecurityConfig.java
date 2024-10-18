@@ -11,9 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import uni.projects.talkmeow.repositories.UserRepository;
 import uni.projects.talkmeow.services.CustomUserDetailsService;
-import uni.projects.talkmeow.services.GlobalAttributeService;
 
 @Configuration
 public class SecurityConfig {
